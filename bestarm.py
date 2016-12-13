@@ -41,6 +41,7 @@ if __name__ == "__main__":
     mab = MultiArmedBandit()
     mab.add_bernoulli_arms([0.1, 0.005, 0.3, 0.4, 0.18, 0.7, 0.8, 0.12, 0.79, 0.23])
     mab.add_gaussian_arms([0.95, 0.5, 0.3], [0.01, 0.1, 0.3])
+    mab.add_beta_arms([1., 2., 3., 4.], [4., 3., 2., 1.])
     print(mab.get_best_arm_index_and_expectation())
     print(mab._get_deltas())
     print(mab.getH1())

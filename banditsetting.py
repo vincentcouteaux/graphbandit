@@ -15,12 +15,15 @@ class ArmGaussian:
         self.sigma = sigma
     def pull(self):
         r = np.random.randn()*self.sigma + self.p
-        if r > 1.:
-            return 1.
-        elif r < 0.:
-            return 0.
-        else:
-            return r
+        return r
+
+class ArmBeta:
+    def __init__(self, a, b):
+        self.a = a
+        self.b = b
+        self.p = float(a)/(a+b)
+    def pull(self):
+        return np.random.beta(self.a, self.b)
 
 class MultiArmedBandit:
     def __init__(self):
@@ -33,6 +36,10 @@ class MultiArmedBandit:
     def add_gaussian_arms(self, averages, stds):
         for i, a in enumerate(averages):
             self._arms.append(ArmGaussian(a, stds[i]))
+
+    def add_beta_arms(self, param_a, param_b):
+        for i, a in enumerate(param_a):
+            self._arms.append(ArmBeta(a, param_b[i]))
 
     def get_number_of_arms(self):
         return len(self._arms)
