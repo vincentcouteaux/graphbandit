@@ -14,7 +14,7 @@ class ArmGaussian:
         self.p = mu
         self.sigma = sigma
     def pull(self):
-        r = np.random.randn()*self.sigma + self.mu
+        r = np.random.randn()*self.sigma + self.p
         if r > 1.:
             return 1.
         elif r < 0.:

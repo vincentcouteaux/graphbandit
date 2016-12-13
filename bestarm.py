@@ -34,14 +34,17 @@ def nonlinear_seq_elimination(multi_armed_bandit, budget, param):
 def succesive_rejection(multi_armed_bandit, budget):
     return nonlinear_seq_elimination(multi_armed_bandit, budget, 1)
 
+#def sequential_halving(multi_armed_bandit, budget):
+    #TO-DO find a way to to sequential halving by calling general_sequential_elimination, with a certain z and b...
 
 if __name__ == "__main__":
     mab = MultiArmedBandit()
     mab.add_bernoulli_arms([0.1, 0.005, 0.3, 0.4, 0.18, 0.7, 0.8, 0.12, 0.79, 0.23])
+    mab.add_gaussian_arms([0.95, 0.5, 0.3], [0.01, 0.1, 0.3])
     print(mab.get_best_arm_index_and_expectation())
     print(mab._get_deltas())
     print(mab.getH1())
     print(mab.getH2())
-    print(succesive_rejection(mab, 200))
+    print(succesive_rejection(mab, 10000))
 
 
