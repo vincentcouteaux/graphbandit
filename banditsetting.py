@@ -74,3 +74,20 @@ class MultiArmedBandit:
 
     def getH2(self):
         return self.getH(1)
+
+class MABSideObservation(MultiArmedBandit):
+    def add_graph(self, W):
+        """! @param W the adjacency matrix """
+        self.W = W
+        self.W = self.W > 0.5
+        self.W = np.logical_or(self.W, self.W.T)
+        for i in range(W.shape[0]):
+            self.W[i, i] = False
+
+    def pull(self, index):
+        neighbors = self.W[index, :].nonzero()[0]
+        side_observations = {}
+        for n in neighbors:
+            side_observations[n] = self._arms[n].pull()
+        return self._arms[index].pull(), side_observations
+
