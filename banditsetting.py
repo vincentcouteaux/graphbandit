@@ -26,8 +26,11 @@ class ArmBeta:
         return np.random.beta(self.a, self.b)
 
 class MultiArmedBandit:
-    def __init__(self):
-        self._arms = []
+    def __init__(self, copy=None):
+        if copy==None:
+            self._arms = []
+        else:
+            self._arms = copy._arms
 
     def add_bernoulli_arms(self, averages):
         for a in averages:
